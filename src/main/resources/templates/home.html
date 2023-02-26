@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server-Sent Events Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <style>
+    .navbar{
+      min-height: 80px;
+    }
+    .navbar-brand{
+      max-width: auto;
+      font-size: 2.6rem;
+    }
+    .panel{
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+    .h3{
+      color: blue;
+    }
+    .pstyle{
+      font-size: 2rem;
+      font-family: Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body>
+<h1>Server-Sent Events Example</h1>
+<ul id="sse-list"></ul>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-brand">Latest New here</div>
+  </div>
+</nav>
+<div class="container pstyle text-center" id="pack">
+  <div class="panel panel-primary">
+    News TimeLine
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    var eventSource = new EventSource("http://localhost:8888/sse/subscribe");
+    eventSource.addEventListener("latestNews", function(event){
+      console.log(event)
+      var articleData = JSON.parse(event.data);
+      var articleData = JSON.parse(event.data);
+      addBlock(articleData.title, articleData.text);
+    })
+
+    function addBlock(title, text){
+      var a =document.createElement("article");
+      //title
+      var h = document.createElement("H3");
+      var t = document.createTextNode(title);
+      h.appendChild(t);
+      //pragraph
+      var para = document.createElement("P");
+      para.innerHTML = text;
+      a.appendChild(h);
+      a.appendChild(para);
+      document.getElementById("pack").appendChild(a);
+    }
+  })
+</script>
+</body>
+</html>

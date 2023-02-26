@@ -1,0 +1,51 @@
+//
+// Bootstrap カスタマイズ
+//
+$blue: #2185d0 !default;
+$green: #21ba45 !default;
+$secondary: hsl(208deg 7% 56%) !default;
+//$dark: hsl(231deg 30% 22%) !default;
+//$dark: hsl(225deg 45% 16%) !default;
+//$dark: #0f1e35 !default;
+
+// Typography
+$font-size-base: .875rem !default; // `15px`
+
+// Forms
+$form-label-margin-bottom: .4rem !default;
+$form-label-font-size: .8125rem !default;
+$form-label-font-weight: 700 !default;
+
+// Spacing
+$spacer: 1rem !default;
+$spacers: (
+        0: 0,
+        1: $spacer * .25,
+        2: $spacer * .5,
+        3: $spacer,
+        4: $spacer * 1.5,
+        5: $spacer * 2.5,
+) !default;
+
+// Buttons + Forms
+$input-btn-padding-x: .85rem !default;
+$input-btn-focus-width: .1rem !default;
+
+// Buttons
+$btn-padding-x: 1.3rem !default;
+//$btn-font-weight: 700 !default;
+
+// Tables
+$table-border-color: #E2E3E3 !default;
+
+.table > :not(:first-child) {
+  border-top-width: 1px !important;
+}
+
+// Cards
+$card-border-color: hsla(0, 0%, 82%, 1) !default;
+
+//
+// Bootstrap 読み込み
+//
+@import "~bootstrap/scss/bootstrap.scss";
