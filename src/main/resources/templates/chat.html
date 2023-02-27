@@ -348,7 +348,7 @@
                   <input type="file">
                 </span>
                         <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
-                        <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a>
+                        <a onclick="submit()" class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a>
                     </div>
 
                 </div>
@@ -371,6 +371,25 @@
             var para = document.createElement("P");
             para.innerHTML = text;
             document.getElementById("pack").appendChild(para);
+        }
+
+        function submit(){
+            $.ajax({
+                type: "POST",
+                url: "your-url",
+                data: {
+                    key1: value1,
+                    key2: value2,
+                    // Thêm các cặp key-value khác nếu cần thiết
+                },
+                success: function(data) {
+                    // Xử lý kết quả trả về từ server nếu thành công
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+
         }
     })
 </script>

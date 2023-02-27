@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,4 +26,8 @@ public class User {
     private String picture;
     private Date addDate;
     private Date updateDate;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<MessageEntity> messages = new ArrayList<>();
+
 }

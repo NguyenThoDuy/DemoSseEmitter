@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login", "/static/css/**", "/static/js/**", "/home", "/chat", "/sse/**").permitAll()
+                .antMatchers("/login", "/static/css/**", "/static/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

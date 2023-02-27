@@ -1,5 +1,7 @@
 package com.tutorial.Common.controller;
 
+import com.tutorial.Common.service.MessageService;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +11,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
+@RequiredArgsConstructor
 public class HomeController {
+    private final MessageService messageService;
     public List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
     @CrossOrigin(origins = "*")
@@ -28,9 +32,10 @@ public class HomeController {
     }
 
     @PostMapping(value = "/sse/dispatch", consumes = MediaType.ALL_VALUE)
-    public void dispatchEventToClients(@RequestParam String title, @RequestParam String text) {
+    public void dispatchEventToClients(@RequestParam String content) {
         SseEmitter sseEmitter = new SseEmitter();
-        String evenFormatted = new JSONObject().put("title", title).put("text", text).toString();
+        String evenFormatted = new JSONObject().put("text", content).toString();
+        messageService.save(content);
         for (SseEmitter emitter : emitters) {
             try {
                 emitter.send(SseEmitter.event().name("latestNews").data(evenFormatted));
