@@ -1,28 +1,22 @@
 package com.tutorial.Common.controller;
 
-import com.tutorial.Common.request.LoginRequest;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import com.tutorial.Common.service.imp.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.security.Principal;
 
 @Controller
 public class AuthenController {
-    @GetMapping("/login")
-    public String viewLoginPage(Model model) {
-        model.addAttribute("loginRequest", new LoginRequest());
-        return "login";
+    private final UserService userService;
+
+    public AuthenController(UserService userService) {
+        this.userService = userService;
     }
 
-//    @PostMapping("/login")
-//    public String viewLoginPage(Model model, @ModelAttribute LoginRequest request) {
-//        model.addAttribute("loginRequest", new LoginRequest());
-//        return "login";
-//    }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/home")
     public String home() {
@@ -30,7 +24,10 @@ public class AuthenController {
     }
 
     @GetMapping("/chat")
-    public String chat(){
+    public String chat(Model model){
+        var data = userService.getMesage();
+        System.out.println(data);
+        model.addAttribute("messResponse", data);
         return "chat";
     }
 }

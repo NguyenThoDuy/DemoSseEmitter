@@ -1,6 +1,7 @@
 package com.tutorial.Common.security;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,8 +21,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
+        CustomOAuth2User njs3OAuth2User = new CustomOAuth2User(oauthUser);
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         attr.getRequest().getSession(true).setAttribute("loginAt", Instant.now());
-        response.sendRedirect("/home");
+        response.sendRedirect("/chat");
     }
 }

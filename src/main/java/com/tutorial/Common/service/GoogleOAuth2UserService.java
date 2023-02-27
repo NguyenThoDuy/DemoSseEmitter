@@ -2,6 +2,7 @@ package com.tutorial.Common.service;
 
 import com.tutorial.Common.model.User;
 import com.tutorial.Common.repository.UserRepository;
+import com.tutorial.Common.security.CustomOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -34,6 +35,6 @@ public class GoogleOAuth2UserService extends DefaultOAuth2UserService {
             user.setUpdateDate(new Date());
             userRepository.save(user);
         }
-        return oAuth2User;
+        return new CustomOAuth2User(oAuth2User);
     }
 }

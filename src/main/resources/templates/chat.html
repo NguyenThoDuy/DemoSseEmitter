@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Bootstrap Chat Messages Box</title>
@@ -333,7 +334,7 @@
                     <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
                         <div class="media media-chat">
                             <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body" id="pack">
+                            <div class="media-body pack">
                                 <p>Hi</p>
                             </div>
                         </div>
@@ -342,13 +343,13 @@
 
                     <div class="publisher bt-1 border-light">
                         <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                        <input class="publisher-input" type="text" placeholder="Write something">
+                        <input id="content" class="publisher-input" type="text" placeholder="Write something">
                         <span class="publisher-btn file-group">
                   <i class="fa fa-paperclip file-browser"></i>
                   <input type="file">
                 </span>
                         <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
-                        <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a>
+                        <a id="submit-form" class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a>
                     </div>
 
                 </div>
@@ -370,8 +371,23 @@
             //pragraph
             var para = document.createElement("P");
             para.innerHTML = text;
-            document.getElementById("pack").appendChild(para);
+            document.getElementsByClassName("pack").appendChild(para);
         }
+
+        $("#submit-form").click(function () {
+            var content = $('#content').val();
+            $.ajax({
+                type: "POST",
+                url: "/sse/dispatch?content="+content,
+                success: function(data) {
+                    // Xử lý kết quả trả về từ server nếu thành công
+                    console.log("ok bro")
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
     })
 </script>
 </body>
